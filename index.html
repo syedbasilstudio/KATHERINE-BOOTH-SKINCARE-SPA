@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="theme-color" content="#1C1C1C" />
+<title>Katherine Booth Skincare &amp; Spa — Lynchburg, Virginia</title>
+<meta name="description" content="Katherine Booth Skincare & Spa — a refined skincare destination in Lynchburg, Virginia offering personalised facials, HydraFacials, advanced skin treatments and restorative spa experiences." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231C1C1C'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23FDFBF7' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ===================== DESIGN TOKENS ===================== */
+:root {
+  --bg: #FDFBF7;
+  --bg-2: #F7F4EF;
+  --fg: #1C1C1C;
+  --muted: #6B6863;
+  --accent: #B99A8A;
+  --border: #E8E2DA;
+  --dark-border: #3a3a3a;
+  --light-muted: #a8a59f;
+  --radius: 0.25rem;
+  --font-heading: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --max-w: 1400px;
+  --max-w-narrow: 1100px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-2: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ===================== RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--accent); color: var(--bg); }
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ===================== UTILITIES ===================== */
+.container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+.container-narrow { max-width: var(--max-w-narrow); }
+@media (min-width: 640px) {
+  .container, .container-narrow { padding-left: 2rem; padding-right: 2rem; }
+}
+.font-heading { font-family: var(--font-heading); }
+.text-balance { text-wrap: balance; }
+.tracking-luxe { letter-spacing: 0.2em; }
+.tracking-luxe-sm { letter-spacing: 0.14em; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Eyebrow label */
+.eyebrow {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+}
+.eyebrow .rule { height: 1px; width: 2.5rem; background: var(--accent); }
+.eyebrow span:last-child {
+  color: var(--muted); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+}
+.eyebrow.dark span:last-child { color: var(--accent); }
+
+/* Thin rule */
+.thin-rule { height: 1px; background: var(--border); }
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-img { transform: scale(1.04); transition: transform 1.4s var(--ease); }
+.reveal.is-visible .reveal-img { transform: scale(1); }
+
+/* ===================== PRELOADER ===================== */
+#preloader {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--fg);
+  transition: all 0.7s var(--ease-2);
+}
+#preloader.closing {
+  clip-path: inset(0 0 50% 0);
+  opacity: 0.6;
+}
+#preloader.gone { display: none; }
+.pre-char {
+  opacity: 0; filter: blur(12px); transform: translateY(8px) scale(0.98);
+  animation: preIn 1.1s var(--ease) forwards;
+}
+@keyframes preIn {
+  to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+}
+
+/* ===================== HEADER ===================== */
+#header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  transition: all 0.5s var(--ease);
+}
+#header.scrolled {
+  background: rgba(253, 251, 247, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 4rem;
+}
+@media (min-width: 640px) { .header-inner { height: 5rem; } }
+.logo { text-align: left; line-height: 1; }
+.logo .name {
+  font-family: var(--font-heading); color: var(--fg);
+  font-size: 1.125rem; font-weight: 500; letter-spacing: 0.14em;
+}
+@media (min-width: 640px) { .logo .name { font-size: 1.25rem; } }
+.logo .sub {
+  color: var(--muted); font-size: 0.55rem; letter-spacing: 0.4em;
+  text-transform: uppercase; margin-top: 0.25rem;
+}
+@media (min-width: 640px) { .logo .sub { font-size: 0.6rem; } }
+.nav-desktop { display: none; align-items: center; gap: 2.5rem; }
+@media (min-width: 768px) { .nav-desktop { display: flex; } }
+.nav-desktop a {
+  color: var(--fg); font-size: 0.78rem; letter-spacing: 0.18em;
+  text-transform: uppercase; font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-desktop a:hover { color: var(--accent); }
+.header-cta { display: flex; align-items: center; gap: 0.75rem; }
+.btn-book-header {
+  display: none;
+  align-items: center; justify-content: center;
+  height: 2.75rem; padding: 0 1.5rem;
+  background: var(--fg); color: var(--bg);
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  transition: background 0.3s ease;
+}
+.btn-book-header:hover { background: var(--accent); }
+@media (min-width: 640px) { .btn-book-header { display: inline-flex; } }
+.hamburger { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; color: var(--fg); }
+.hamburger svg { width: 22px; height: 22px; }
+@media (min-width: 768px) { .hamburger { display: none; } }
+
+/* Mobile overlay */
+#mobile-menu {
+  position: fixed; inset: 0; z-index: 60;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#mobile-menu.open { opacity: 1; pointer-events: auto; }
+#mobile-menu .bg { position: absolute; inset: 0; background: var(--fg); }
+#mobile-menu .content { position: relative; height: 100%; display: flex; flex-direction: column; padding: 1.5rem; }
+.mm-head { display: flex; align-items: center; justify-content: space-between; }
+.mm-head .name { font-family: var(--font-heading); color: var(--bg); font-size: 1.125rem; letter-spacing: 0.14em; }
+.mm-head .sub { color: var(--accent); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.25rem; }
+.mm-close { color: var(--bg); width: 2.75rem; height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; }
+.mm-close svg { width: 22px; height: 22px; }
+.mm-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.75rem; }
+.mm-nav a { text-align: left; font-family: var(--font-heading); color: var(--bg); font-size: 2.5rem; font-weight: 300; }
+.mm-book {
+  margin-bottom: 2rem; display: inline-flex; align-items: center; justify-content: center;
+  height: 3.5rem; background: var(--bg); color: var(--fg);
+  font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500;
+}
+
+/* ===================== HERO ===================== */
+#hero {
+  position: relative; min-height: 100svh; background: var(--bg); overflow: hidden;
+}
+.hero-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 7rem 1.25rem 4rem;
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+}
+@media (min-width: 640px) { .hero-inner { padding-top: 8rem; padding-bottom: 6rem; } }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
+@media (min-width: 1024px) { .hero-grid { grid-template-columns: repeat(12, 1fr); gap: 3rem; } }
+.hero-text { order: 2; }
+@media (min-width: 1024px) { .hero-text { grid-column: span 6; order: 1; } }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem;
+}
+.hero-eyebrow .rule { height: 1px; width: 2.5rem; background: var(--accent); }
+.hero-eyebrow span:last-child {
+  color: var(--muted); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+}
+@media (min-width: 640px) { .hero-eyebrow span:last-child { font-size: 0.66rem; } }
+.hero-h1 {
+  font-family: var(--font-heading); color: var(--fg);
+  font-size: 2.6rem; line-height: 1.05; font-weight: 300; text-wrap: balance;
+}
+@media (min-width: 640px) { .hero-h1 { font-size: 3.75rem; } }
+@media (min-width: 1024px) { .hero-h1 { font-size: 4.4rem; } }
+.hero-h1 .italic { font-style: italic; font-weight: 300; color: var(--fg); }
+.hero-desc { margin-top: 1.75rem; max-width: 28rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+@media (min-width: 640px) { .hero-desc { font-size: 1.05rem; } }
+.hero-btns { margin-top: 2.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+@media (min-width: 640px) { .hero-btns { flex-direction: row; gap: 1rem; } }
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 2rem;
+  background: var(--fg); color: var(--bg);
+  font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  transition: background 0.3s ease;
+}
+.btn-primary:hover { background: var(--accent); }
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 48px; padding: 0 2rem;
+  border: 1px solid var(--fg); color: var(--fg);
+  font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover { background: var(--fg); color: var(--bg); }
+.btn-outline svg { width: 15px; height: 15px; }
+.hero-image { order: 1; }
+@media (min-width: 1024px) { .hero-image { grid-column: span 6; order: 2; } }
+.hero-image-frame { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--bg-2); }
+@media (min-width: 640px) { .hero-image-frame { aspect-ratio: 3/4; } }
+.hero-img-wrap { position: absolute; inset: 0; will-change: transform; transition: transform 0.6s var(--ease); }
+.hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,28,28,0.1), transparent); pointer-events: none; }
+.hero-tag {
+  position: absolute; bottom: 1.25rem; left: 1.25rem;
+  color: rgba(253, 251, 247, 0.9); font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase;
+}
+.scroll-cue {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  display: none; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted);
+}
+@media (min-width: 640px) { .scroll-cue { display: flex; } }
+.scroll-cue span:first-child { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; }
+.scroll-cue .line { height: 2.5rem; width: 1px; background: rgba(185, 154, 138, 0.5); }
+
+/* ===================== INTRODUCTION ===================== */
+#about { background: var(--bg); padding: 5rem 0; }
+@media (min-width: 640px) { #about { padding: 8rem 0; } }
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
+@media (min-width: 1024px) { .about-grid { grid-template-columns: repeat(12, 1fr); gap: 5rem; } }
+.about-img { order: 2; }
+@media (min-width: 1024px) { .about-img { grid-column: span 5; order: 1; } }
+.about-img-frame { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--bg-2); }
+.about-img-frame .reveal-img { width: 100%; height: 100%; }
+.about-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+.about-text { order: 1; }
+@media (min-width: 1024px) { .about-text { grid-column: span 7; order: 2; } }
+.about-h2 { font-family: var(--font-heading); color: var(--fg); font-size: 1.875rem; font-weight: 300; line-height: 1.1; text-wrap: balance; }
+@media (min-width: 640px) { .about-h2 { font-size: 2.25rem; } }
+@media (min-width: 1024px) { .about-h2 { font-size: 2.9rem; } }
+.about-p1 { margin-top: 1.75rem; max-width: 28rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+@media (min-width: 640px) { .about-p1 { font-size: 1.125rem; } }
+.about-rule { margin-top: 2.5rem; max-width: 28rem; }
+.about-p2 { margin-top: 1.5rem; max-width: 28rem; color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+
+/* ===================== SIGNATURE TREATMENTS ===================== */
+#treatments { background: var(--bg-2); padding: 5rem 0; }
+@media (min-width: 640px) { #treatments { padding: 8rem 0; } }
+.section-header { max-width: 48rem; }
+.section-h2 { font-family: var(--font-heading); color: var(--fg); font-size: 1.875rem; font-weight: 300; line-height: 1.08; text-wrap: balance; }
+@media (min-width: 640px) { .section-h2 { font-size: 3rem; } }
+.section-desc { margin-top: 1.5rem; color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 42rem; }
+@media (min-width: 640px) { .section-desc { font-size: 1.125rem; } }
+.sig-grid { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) { .sig-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+@media (min-width: 1024px) { .sig-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+.sig-card { display: block; width: 100%; text-align: left; }
+.sig-card-img { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--border); }
+.sig-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.sig-card:hover .sig-card-img img { transform: scale(1.05); }
+.sig-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,28,28,0.35), transparent 50%); }
+.sig-card-no { position: absolute; top: 1rem; left: 1rem; color: var(--bg); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; }
+.sig-card-body { padding-top: 1.25rem; }
+.sig-card-title { font-family: var(--font-heading); color: var(--fg); font-size: 1.25rem; font-weight: 400; }
+@media (min-width: 640px) { .sig-card-title { font-size: 1.5rem; } }
+.sig-card-desc { margin-top: 0.5rem; color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+.sig-card-link {
+  margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.375rem;
+  color: var(--fg); font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  transition: color 0.3s ease;
+}
+.sig-card:hover .sig-card-link { color: var(--accent); }
+.sig-card-link svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+.sig-card:hover .sig-card-link svg { transform: translate(2px, -2px); }
+
+/* ===================== TREATMENT DISCOVERY ===================== */
+#discovery { background: var(--bg); padding: 5rem 0; }
+@media (min-width: 640px) { #discovery { padding: 8rem 0; } }
+.filter-bar {
+  margin-top: 2.5rem; margin-left: -1.25rem; margin-right: -1.25rem; padding: 0 1.25rem;
+  overflow-x: auto;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+@media (min-width: 640px) { .filter-bar { margin: 2.5rem 0 0 0; padding: 0; } }
+.filter-inner { display: flex; gap: 0.5rem; min-width: max-content; }
+@media (min-width: 640px) { .filter-inner { flex-wrap: wrap; min-width: 0; } }
+.filter-btn {
+  white-space: nowrap; height: 2.5rem; padding: 0 1.25rem;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+  border: 1px solid var(--border); color: var(--fg); background: transparent;
+  transition: all 0.3s ease;
+}
+.filter-btn:hover { border-color: var(--fg); }
+.filter-btn.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.disc-grid {
+  margin-top: 2.5rem; display: grid; grid-template-columns: 1fr; gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+}
+@media (min-width: 640px) { .disc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .disc-grid { grid-template-columns: repeat(3, 1fr); } }
+.disc-card {
+  background: var(--bg); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;
+  transition: background 0.3s ease;
+}
+.disc-card:hover { background: var(--bg-2); }
+@media (min-width: 640px) { .disc-card { padding: 1.75rem; } }
+.disc-card-name { font-family: var(--font-heading); color: var(--fg); font-size: 1.25rem; font-weight: 400; line-height: 1.3; }
+@media (min-width: 640px) { .disc-card-name { font-size: 1.35rem; } }
+.disc-card-meta { margin-top: 1rem; display: flex; align-items: baseline; gap: 0.75rem; }
+.disc-card-price { font-family: var(--font-body); color: var(--fg); font-size: 1rem; font-weight: 500; }
+.disc-card-sep { height: 0.75rem; width: 1px; background: var(--border); }
+.disc-card-dur { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.08em; }
+.disc-card-book {
+  margin-top: 1.5rem; display: inline-flex; align-items: center; justify-content: center;
+  height: 2.75rem; border: 1px solid var(--fg); color: var(--fg);
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  transition: all 0.3s ease;
+}
+.disc-card-book:hover { background: var(--fg); color: var(--bg); }
+.disc-empty { margin-top: 2.5rem; color: var(--muted); font-size: 0.875rem; }
+
+/* ===================== FEATURED TREATMENTS ===================== */
+#featured { background: var(--fg); color: var(--bg); padding: 5rem 0; }
+@media (min-width: 640px) { #featured { padding: 8rem 0; } }
+#featured .section-h2 { color: var(--bg); }
+.feat-grid { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--dark-border); }
+@media (min-width: 768px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
+.feat-card { background: var(--fg); padding: 2rem; display: flex; flex-direction: column; height: 100%; }
+@media (min-width: 640px) { .feat-card { padding: 2.5rem; } }
+.feat-card-name { font-family: var(--font-heading); color: var(--bg); font-size: 1.5rem; font-weight: 400; line-height: 1.3; }
+@media (min-width: 640px) { .feat-card-name { font-size: 1.875rem; } }
+.feat-card-meta { margin-top: 1rem; display: flex; align-items: baseline; gap: 0.75rem; }
+.feat-card-price { color: var(--accent); font-size: 0.875rem; letter-spacing: 0.1em; }
+.feat-card-sep { height: 0.75rem; width: 1px; background: var(--dark-border); }
+.feat-card-dur { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.08em; }
+.feat-card-desc { margin-top: 1.25rem; color: var(--light-muted); font-size: 0.875rem; line-height: 1.6; max-width: 28rem; }
+@media (min-width: 640px) { .feat-card-desc { font-size: 1rem; } }
+.feat-card-book {
+  margin-top: 2rem; align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 2.75rem; padding: 0 1.75rem;
+  border: 1px solid rgba(253, 251, 247, 0.4); color: var(--bg);
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  transition: all 0.3s ease;
+}
+.feat-card-book:hover { background: var(--bg); color: var(--fg); }
+
+/* ===================== PACKAGES ===================== */
+#packages { background: var(--bg-2); padding: 5rem 0; }
+@media (min-width: 640px) { #packages { padding: 8rem 0; } }
+.pkg-grid { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) { .pkg-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+@media (min-width: 1024px) { .pkg-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+.pkg-card {
+  height: 100%; background: var(--bg); border: 1px solid var(--border);
+  padding: 1.75rem; display: flex; flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+.pkg-card:hover { border-color: var(--accent); }
+@media (min-width: 640px) { .pkg-card { padding: 2rem; } }
+.pkg-card-name { font-family: var(--font-heading); color: var(--fg); font-size: 1.25rem; font-weight: 400; line-height: 1.3; min-height: 3.4rem; }
+@media (min-width: 640px) { .pkg-card-name { font-size: 1.5rem; } }
+.pkg-card-meta { margin-top: 1.25rem; display: flex; align-items: baseline; gap: 0.75rem; }
+.pkg-card-price { font-family: var(--font-heading); color: var(--fg); font-size: 1.875rem; font-weight: 300; }
+.pkg-card-save { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.pkg-card-detail { margin-top: 1rem; color: var(--muted); font-size: 0.875rem; line-height: 1.6; flex: 1; }
+.pkg-card-book {
+  margin-top: 1.75rem; display: inline-flex; align-items: center; justify-content: center;
+  height: 2.75rem; background: var(--fg); color: var(--bg);
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  transition: background 0.3s ease;
+}
+.pkg-card-book:hover { background: var(--accent); }
+
+/* ===================== FULL MENU ===================== */
+#menu { background: var(--bg); padding: 5rem 0; }
+@media (min-width: 640px) { #menu { padding: 8rem 0; } }
+#menu .container { max-width: var(--max-w-narrow); }
+.menu-list { margin-top: 3rem; border-top: 1px solid var(--border); }
+.menu-group { border-bottom: 1px solid var(--border); }
+.menu-group-head {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 0; text-align: left;
+}
+@media (min-width: 640px) { .menu-group-head { padding: 1.75rem 0; } }
+.menu-group-title { font-family: var(--font-heading); color: var(--fg); font-size: 1.5rem; font-weight: 400; }
+@media (min-width: 640px) { .menu-group-title { font-size: 1.875rem; } }
+.menu-group-right { display: flex; align-items: center; gap: 1rem; }
+.menu-group-count {
+  color: var(--muted); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+}
+@media (min-width: 640px) { .menu-group-count { display: inline; } }
+@media (max-width: 639px) { .menu-group-count { display: none; } }
+.chevron { width: 20px; height: 20px; color: var(--fg); transition: transform 0.5s var(--ease); }
+.chevron.open { transform: rotate(180deg); }
+.menu-expand {
+  display: grid; transition: all 0.5s var(--ease);
+  grid-template-rows: 0fr;
+}
+.menu-expand.open { grid-template-rows: 1fr; }
+.menu-expand-inner { overflow: hidden; }
+.menu-expand-pad { padding-bottom: 1.5rem; }
+@media (min-width: 640px) { .menu-expand-pad { padding-bottom: 2rem; } }
+.menu-items { list-style: none; }
+.menu-item {
+  padding: 1rem 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem;
+  border-top: 1px solid rgba(232, 226, 218, 0.7);
+}
+.menu-item-name { color: var(--fg); font-size: 0.95rem; min-width: 0; }
+@media (min-width: 640px) { .menu-item-name { font-size: 1rem; } }
+.menu-item-dur { display: block; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.06em; }
+@media (min-width: 640px) { .menu-item-dur { display: inline; margin-left: 0.75rem; } }
+.menu-item-dur .sep { display: none; }
+@media (min-width: 640px) { .menu-item-dur .sep { display: inline; } }
+.menu-item-right { display: flex; align-items: center; gap: 1.25rem; flex-shrink: 0; }
+.menu-item-price { font-family: var(--font-body); color: var(--fg); font-size: 0.875rem; font-weight: 500; }
+@media (min-width: 640px) { .menu-item-price { font-size: 1rem; } }
+.menu-item-book {
+  display: none; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500; color: var(--fg); transition: color 0.3s ease;
+}
+.menu-item-book:hover { color: var(--accent); }
+@media (min-width: 640px) { .menu-item-book { display: inline; } }
+
+/* ===================== BOOKING CTA ===================== */
+#booking-cta { background: var(--bg-2); padding: 6rem 0; position: relative; overflow: hidden; }
+@media (min-width: 640px) { #booking-cta { padding: 9rem 0; } }
+.cta-inner { text-align: center; }
+.cta-eyebrow { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.75rem; }
+.cta-eyebrow .rule { height: 1px; width: 2.5rem; background: var(--accent); }
+.cta-eyebrow span:last-child { color: var(--muted); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; }
+.cta-h2 {
+  font-family: var(--font-heading); color: var(--fg);
+  font-size: 2.6rem; font-weight: 300; line-height: 1.05; text-wrap: balance;
+}
+@media (min-width: 640px) { .cta-h2 { font-size: 3.75rem; } }
+@media (min-width: 1024px) { .cta-h2 { font-size: 4.5rem; } }
+.cta-desc { margin-top: 1.75rem; margin-left: auto; margin-right: auto; max-width: 28rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+@media (min-width: 640px) { .cta-desc { font-size: 1.125rem; } }
+.cta-btns { margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+@media (min-width: 640px) { .cta-btns { flex-direction: row; gap: 1rem; } }
+
+/* ===================== CONTACT / FOOTER ===================== */
+#contact { background: var(--fg); color: var(--bg); padding: 5rem 0; }
+@media (min-width: 640px) { #contact { padding: 7rem 0; } }
+.contact-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+@media (min-width: 768px) { .contact-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+.contact-col { }
+@media (min-width: 768px) { .contact-col { padding-right: 2rem; } }
+@media (min-width: 768px) { .contact-col:not(:last-child) { border-right: 1px solid var(--dark-border); } }
+.contact-label { display: flex; align-items: center; gap: 0.5rem; color: var(--accent); font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 1.25rem; }
+.contact-label svg { width: 14px; height: 14px; }
+.contact-name { font-family: var(--font-heading); color: var(--bg); font-size: 1.5rem; font-weight: 400; line-height: 1.3; }
+.contact-address { font-style: normal; margin-top: 0.75rem; color: var(--light-muted); font-size: 0.875rem; line-height: 1.6; }
+.contact-address span { display: block; }
+.contact-link { display: block; color: var(--bg); font-size: 1rem; transition: color 0.3s ease; }
+.contact-link:hover { color: var(--accent); }
+.contact-link + .contact-link { margin-top: 0.5rem; }
+.contact-link.break-all { word-break: break-all; }
+.btn-contact {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 3rem; padding: 0 2rem;
+  background: var(--bg); color: var(--fg);
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn-contact:hover { background: var(--accent); color: var(--bg); }
+.contact-platform { margin-top: 1rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; }
+.footer-base {
+  margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--dark-border);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1rem;
+}
+@media (min-width: 640px) { .footer-base { flex-direction: row; } }
+.footer-brand { text-align: center; }
+@media (min-width: 640px) { .footer-brand { text-align: left; } }
+.footer-brand .name { font-family: var(--font-heading); color: var(--bg); font-size: 1.125rem; letter-spacing: 0.14em; }
+.footer-brand .sub { color: var(--muted); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.25rem; }
+.footer-copy { color: var(--muted); font-size: 0.6rem; letter-spacing: 0.1em; }
+
+/* ===================== MOBILE BOOK BAR ===================== */
+#mobile-book-bar {
+  display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+  background: rgba(253, 251, 247, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border); padding: 0.75rem 1rem;
+}
+@media (min-width: 640px) { #mobile-book-bar { display: none; } }
+#mobile-book-bar a {
+  display: flex; align-items: center; justify-content: center;
+  height: 3rem; background: var(--fg); color: var(--bg);
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+}
+
+/* ===================== CONCIERGE ===================== */
+#concierge-btn {
+  position: fixed; z-index: 50; bottom: 1.25rem; right: 1.25rem;
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  background: var(--fg); color: var(--bg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s ease;
+}
+@media (min-width: 640px) { #concierge-btn { bottom: 1.75rem; right: 1.75rem; } }
+#concierge-btn:hover { background: var(--accent); }
+#concierge-btn svg { width: 22px; height: 22px; }
+.concierge-panel {
+  position: fixed; z-index: 50;
+  bottom: 5.5rem; right: 0.75rem;
+  width: calc(100vw - 1.5rem); max-width: 400px;
+  transform-origin: bottom right;
+  transition: all 0.4s var(--ease);
+  opacity: 0; transform: scale(0.95); pointer-events: none;
+}
+@media (min-width: 640px) { .concierge-panel { right: 1.75rem; } }
+.concierge-panel.open { opacity: 1; transform: scale(1); pointer-events: auto; }
+.concierge-panel-inner {
+  background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border); box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  display: flex; flex-direction: column; max-height: 70vh;
+}
+@media (min-width: 640px) { .concierge-panel-inner { max-height: 600px; } }
+.concierge-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+.concierge-icon { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--fg); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+.concierge-icon svg { width: 16px; height: 16px; }
+.concierge-title { font-family: var(--font-heading); color: var(--fg); font-size: 1rem; font-weight: 500; line-height: 1.2; }
+.concierge-sub { color: var(--muted); font-size: 0.6rem; letter-spacing: 0.12em; }
+.concierge-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.concierge-msg { max-width: 85%; padding: 0.625rem 1rem; font-size: 0.875rem; line-height: 1.6; border-radius: 1rem; }
+.concierge-msg.user { margin-left: auto; background: var(--fg); color: var(--bg); border-bottom-right-radius: 0.25rem; }
+.concierge-msg.bot { margin-right: auto; background: var(--bg-2); color: var(--fg); border-bottom-left-radius: 0.25rem; }
+.concierge-typing { margin-right: auto; background: var(--bg-2); color: var(--muted); padding: 0.625rem 1rem; border-radius: 1rem; border-bottom-left-radius: 0.25rem; font-size: 0.875rem; display: flex; align-items: center; gap: 0.375rem; }
+.typing-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.12s; }
+.typing-dot:nth-child(3) { animation-delay: 0.24s; }
+@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+.concierge-suggestions { padding: 0 1rem 0.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.concierge-suggestion {
+  font-size: 0.68rem; letter-spacing: 0.04em; padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border); color: var(--fg); border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+.concierge-suggestion:hover { border-color: var(--accent); color: var(--accent); }
+.concierge-input { padding: 0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+.concierge-input input { flex: 1; height: 2.75rem; padding: 0 1rem; background: transparent; color: var(--fg); font-size: 0.875rem; border: none; outline: none; font-family: inherit; }
+.concierge-input input::placeholder { color: var(--muted); }
+.concierge-send { width: 2.75rem; height: 2.75rem; flex-shrink: 0; background: var(--fg); color: var(--bg); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease; }
+.concierge-send:disabled { opacity: 0.4; }
+.concierge-send:hover { background: var(--accent); }
+.concierge-send svg { width: 16px; height: 16px; }
+
+/* Body padding for mobile book bar */
+@media (max-width: 639px) { body { padding-bottom: 4rem; } }
+</style>
+</head>
+<body>
+
+<!-- ===================== PRELOADER ===================== -->
+<div id="preloader">
+  <div style="text-align: center; padding: 0 1.5rem;">
+    <div class="pre-char font-heading" style="color: var(--bg); font-size: 1.875rem; font-weight: 300; letter-spacing: 0.2em; animation-delay: 0.1s;">
+      KATHERINE BOOTH
+    </div>
+    <div class="pre-char" style="margin-top: 1rem; color: var(--accent); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; animation-delay: 0.45s;">
+      Skincare &amp; Spa
+    </div>
+    <div class="pre-char" style="margin-top: 2rem; color: var(--muted); font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; animation-delay: 0.8s;">
+      Lynchburg, Virginia
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <div class="container">
+    <div class="header-inner">
+      <button class="logo" onclick="scrollToSection('#top')">
+        <div class="name">KATHERINE BOOTH</div>
+        <div class="sub">Skincare &amp; Spa</div>
+      </button>
+      <nav class="nav-desktop">
+        <a href="#" onclick="event.preventDefault(); scrollToSection('#treatments')">Treatments</a>
+        <a href="#" onclick="event.preventDefault(); scrollToSection('#packages')">Packages</a>
+        <a href="#" onclick="event.preventDefault(); scrollToSection('#about')">About</a>
+        <a href="#" onclick="event.preventDefault(); scrollToSection('#contact')">Contact</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn-book-header" href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer">Book Now</a>
+        <button class="hamburger" onclick="toggleMobileMenu(true)" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== MOBILE MENU ===================== -->
+<div id="mobile-menu">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="mm-head">
+      <div style="line-height: 1;">
+        <div class="name">KATHERINE BOOTH</div>
+        <div class="sub">Skincare &amp; Spa</div>
+      </div>
+      <button class="mm-close" onclick="toggleMobileMenu(false)" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mm-nav">
+      <a href="#" onclick="event.preventDefault(); scrollToSection('#treatments')">Treatments</a>
+      <a href="#" onclick="event.preventDefault(); scrollToSection('#packages')">Packages</a>
+      <a href="#" onclick="event.preventDefault(); scrollToSection('#about')">About</a>
+      <a href="#" onclick="event.preventDefault(); scrollToSection('#contact')">Contact</a>
+    </nav>
+    <a class="mm-book" href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu(false)">Book Your Treatment</a>
+  </div>
+</div>
+
+<!-- ===================== MAIN ===================== -->
+<main id="main" style="opacity: 0;">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <span class="rule"></span>
+            <span>Personalised Skincare · Lynchburg, Virginia</span>
+          </div>
+          <h1 class="hero-h1">
+            Your skin,<br><span class="italic">thoughtfully</span> cared for.
+          </h1>
+          <p class="hero-desc">
+            Discover customised facials, advanced skin treatments and restorative spa experiences designed around your individual skincare needs.
+          </p>
+          <div class="hero-btns">
+            <a class="btn-primary" href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer">Book Your Treatment</a>
+            <button class="btn-outline" onclick="scrollToSection('#treatments')">
+              Explore Treatments
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-image-frame">
+            <div class="hero-img-wrap" id="hero-img-wrap">
+              <img src="https://media.base44.com/images/public/6a9ade669605ecb532cce616/812fce3aa_generated_fef03124.jpg" alt="Soft natural light on luminous skin" loading="eager" />
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-tag">Esthetic Care</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <span class="line"></span>
+    </div>
+  </section>
+
+  <!-- INTRODUCTION -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img reveal">
+          <div class="about-img-frame">
+            <div class="reveal-img">
+              <img src="https://media.base44.com/images/public/6a9ade669605ecb532cce616/a07bc5e2d_generated_046d85fe.jpg" alt="Minimalist treatment room at Katherine Booth Skincare & Spa" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="about-text reveal" style="transition-delay: 80ms;">
+          <div class="eyebrow"><span class="rule"></span><span>An Introduction</span></div>
+          <h2 class="about-h2">A more considered approach to skincare.</h2>
+          <p class="about-p1">Every treatment begins with understanding your skincare needs and helping you choose an experience that feels right for you.</p>
+          <div class="thin-rule about-rule"></div>
+          <p class="about-p2">From personalised facials to advanced skin treatments, each visit is shaped around your individual concerns — never a one-size-fits-all routine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE TREATMENTS -->
+  <section id="treatments">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow"><span class="rule"></span><span>Signature Treatments</span></div>
+        <h2 class="section-h2">Explore your skincare ritual.</h2>
+        <p class="section-desc">From personalised facials to advanced skin treatments, discover experiences designed to leave your skin feeling refreshed, cared for and renewed.</p>
+      </div>
+      <div class="sig-grid" id="sig-grid"></div>
+    </div>
+  </section>
+
+  <!-- TREATMENT DISCOVERY -->
+  <section id="discovery">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow"><span class="rule"></span><span>Treatment Discovery</span></div>
+        <h2 class="section-h2">Find your next treatment.</h2>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-inner" id="filter-inner"></div>
+      </div>
+      <div class="disc-grid" id="disc-grid"></div>
+      <p class="disc-empty" id="disc-empty" style="display:none;">No treatments in this category.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED TREATMENTS -->
+  <section id="featured">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow dark"><span class="rule"></span><span>Featured Treatments</span></div>
+        <h2 class="section-h2">The strongest moments of the ritual.</h2>
+      </div>
+      <div class="feat-grid" id="feat-grid"></div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow"><span class="rule"></span><span>Packages</span></div>
+        <h2 class="section-h2">A little more care, a little more value.</h2>
+      </div>
+      <div class="pkg-grid" id="pkg-grid"></div>
+    </div>
+  </section>
+
+  <!-- FULL MENU -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow"><span class="rule"></span><span>The Full Menu</span></div>
+        <h2 class="section-h2">Every treatment, in detail.</h2>
+        <p class="section-desc" style="max-width: 28rem;">Browse the complete service list. Tap a category to expand its treatments.</p>
+      </div>
+      <div class="menu-list" id="menu-list"></div>
+    </div>
+  </section>
+
+  <!-- BOOKING CTA -->
+  <section id="booking-cta">
+    <div class="container cta-inner">
+      <div class="reveal">
+        <div class="cta-eyebrow">
+          <span class="rule"></span>
+          <span>Booking</span>
+          <span class="rule"></span>
+        </div>
+        <h2 class="cta-h2">Ready to make time for your skin?</h2>
+        <p class="cta-desc">Choose your treatment and find a time that works for you.</p>
+        <div class="cta-btns">
+          <a class="btn-primary" href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer">Book Your Treatment</a>
+          <button class="btn-outline" onclick="scrollToSection('#contact')">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="reveal">
+        <div class="contact-grid">
+          <div class="contact-col">
+            <div class="contact-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Locate</span>
+            </div>
+            <h3 class="contact-name">Katherine Booth Skincare &amp; Spa</h3>
+            <address class="contact-address">
+              <span>2007 Tate Springs Road</span>
+              <span>Lynchburg, VA 24551</span>
+              <span>USA</span>
+            </address>
+          </div>
+          <div class="contact-col">
+            <div class="contact-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Connect</span>
+            </div>
+            <a class="contact-link" href="tel:+14344261412">+1 434 426 1412</a>
+            <a class="contact-link break-all" href="mailto:kboothskincare@gmail.com">kboothskincare@gmail.com</a>
+          </div>
+          <div class="contact-col">
+            <div class="contact-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Action</span>
+            </div>
+            <a class="btn-contact" href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer">Schedule Your Experience</a>
+            <p class="contact-platform">Booking via GlossGenius</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-base">
+        <div class="footer-brand">
+          <div class="name">KATHERINE BOOTH</div>
+          <div class="sub">Skincare &amp; Spa · Lynchburg, Virginia</div>
+        </div>
+        <p class="footer-copy">Concept website · <span id="year"></span></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== MOBILE BOOK BAR ===================== -->
+<div id="mobile-book-bar">
+  <a href="https://katherinebooth.glossgenius.com/" target="_blank" rel="noopener noreferrer">Book Your Treatment</a>
+</div>
+
+<!-- ===================== CONCIERGE ===================== -->
+<button id="concierge-btn" onclick="toggleConcierge()" aria-label="Open Katherine's Skincare Concierge">
+  <svg id="concierge-icon-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div class="concierge-panel" id="concierge-panel">
+  <div class="concierge-panel-inner">
+    <div class="concierge-head">
+      <div class="concierge-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>
+      </div>
+      <div style="line-height: 1.2;">
+        <div class="concierge-title">Katherine's Skincare Concierge</div>
+        <div class="concierge-sub">Here to help you explore &amp; book</div>
+      </div>
+    </div>
+    <div class="concierge-messages" id="concierge-messages"></div>
+    <div class="concierge-suggestions" id="concierge-suggestions"></div>
+    <div class="concierge-input">
+      <input id="concierge-input" type="text" placeholder="Ask about treatments, prices…" onkeydown="if(event.key==='Enter') conciergeSend()" />
+      <button class="concierge-send" id="concierge-send" onclick="conciergeSend()" disabled>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+var BUSINESS = {
+  name: "Katherine Booth Skincare & Spa",
+  shortName: "Katherine Booth",
+  tagline: "Skincare & Spa",
+  city: "Lynchburg, Virginia",
+  addressLines: ["2007 Tate Springs Road", "Lynchburg, VA 24551", "USA"],
+  phone: "+1 434 426 1412",
+  email: "kboothskincare@gmail.com",
+  bookingPlatform: "GlossGenius",
+  bookingUrl: "https://katherinebooth.glossgenius.com/"
+};
+
+var NAV = [
+  { label: "Treatments", href: "#treatments" },
+  { label: "Packages", href: "#packages" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" }
+];
+
+var SIGNATURE_CATEGORIES = [
+  { no: "01", title: "Customised Facials", description: "Personalised facial experiences tailored to your skincare needs.", image: "https://media.base44.com/images/public/6a9ade669605ecb532cce616/9fd3c03a5_generated_d5560f61.jpg" },
+  { no: "02", title: "HydraFacials", description: "Signature, Deluxe, Platinum and Clarifying HydraFacial experiences.", image: "https://media.base44.com/images/public/6a9ade669605ecb532cce616/05696fc9b_generated_e6d261b4.jpg" },
+  { no: "03", title: "Advanced Skin Treatments", description: "Peels, microneedling and dermaplaning.", image: "https://media.base44.com/images/public/6a9ade669605ecb532cce616/b8701e746_generated_0ccd9d6e.jpg" },
+  { no: "04", title: "Spa & Beauty", description: "Selected add-ons, waxing and beauty treatments.", image: "https://media.base44.com/images/public/6a9ade669605ecb532cce616/a36edf135_generated_aefba67b.jpg" }
+];
+
+var DISCOVERY_CATEGORIES = ["All Treatments","Facials","HydraFacials","Peels","Microneedling","Dermaplaning","Add-Ons","Waxing","Packages"];
+
+var TREATMENTS = [
+  { name: "30 Min Facial", price: "$55", duration: "45 min", category: "Facials" },
+  { name: "60 Min Customized Facial", price: "$115", duration: "60 min", category: "Facials" },
+  { name: "60 Min Facial & Dermaplane", price: "$175", duration: "60 min", category: "Facials" },
+  { name: "90 Min Custom Facial", price: "$175", duration: "90 min", category: "Facials" },
+  { name: "90 Min Facial With Dermaplane", price: "$235", duration: "90 min", category: "Facials" },
+  { name: "Mens Facial", price: "$165", duration: "60 min", category: "Facials" },
+  { name: "Facial With Circadia Products", price: "$175", duration: "75 min", category: "Facials" },
+  { name: "Co2 Lift Pro Facial", price: "$155", duration: "90 min", category: "Facials" },
+  { name: "Signature Hydra Facial Special", price: "$185+", duration: "45 min", category: "HydraFacials" },
+  { name: "Deluxe HydraFacial", price: "$265+", duration: "75 min", category: "HydraFacials" },
+  { name: "Platinum HydraFacial Special", price: "$315+", duration: "90 min", category: "HydraFacials" },
+  { name: "Clarifying HydraFacial", price: "$225+", duration: "90 min", category: "HydraFacials" },
+  { name: "HydraFacial Keravive Treatment (scalp)", price: "$300+", duration: "90 min", category: "HydraFacials" },
+  { name: "HydraFacial Hand Treatment", price: "$50", duration: "20 min", category: "HydraFacials" },
+  { name: "Red Carpet Ready Peel Alpha Ret 30", price: "$155", duration: "45 min", category: "Peels" },
+  { name: "Pro Clinical Peel", price: "$175", duration: "55 min", category: "Peels" },
+  { name: "AURA 365 Peel", price: "$300", duration: "50 min", category: "Peels" },
+  { name: "The Perfect Derma Peel", price: "$300", duration: "60 min", category: "Peels" },
+  { name: "Perfect Derma Peel Booster", price: "$85", duration: "10 min", category: "Peels" },
+  { name: "Microneedling", price: "$350", duration: "75 min", category: "Microneedling" },
+  { name: "Deluxe Microneedling", price: "$550", duration: "135 min", category: "Microneedling" },
+  { name: "Neck Microneedling Add On", price: "$175", duration: "30 min", category: "Microneedling" },
+  { name: "LED & Sheet Mask Add On", price: "$50", duration: "25 min", category: "Microneedling" },
+  { name: "Dermaplane", price: "$70", duration: "45 min", category: "Dermaplaning" },
+  { name: "Dermaplane Pro", price: "$95", duration: "60 min", category: "Dermaplaning" },
+  { name: "Dermaplane Add On", price: "$60", duration: "20 min", category: "Dermaplaning" },
+  { name: "Eye Perk", price: "$50", duration: "15 min", category: "Add-Ons" },
+  { name: "Lip Perk", price: "$40", duration: "15 min", category: "Add-Ons" },
+  { name: "Lip Perk & Eye Combo", price: "$80", duration: "30 min", category: "Add-Ons" },
+  { name: "Manual Extraction Add On", price: "$25", duration: "20 min", category: "Add-Ons" },
+  { name: "Neck With HydraFacial Add On", price: "$150", duration: "30 min", category: "Add-Ons" },
+  { name: "Face Lymphatic Drainage", price: "$30", duration: "20 min", category: "Add-Ons" },
+  { name: "LED Light Therapy", price: "$30+", duration: "30 min", category: "Add-Ons" },
+  { name: "Consultation", price: "$20+", duration: "credited to service", category: "Add-Ons" },
+  { name: "Brow Wax", price: "$22", duration: "15 min", category: "Waxing" },
+  { name: "Brow Tint", price: "$20", duration: "30 min", category: "Waxing" },
+  { name: "Lash Tint", price: "$30", duration: "45 min", category: "Waxing" },
+  { name: "Lip Wax", price: "$15", duration: "15 min", category: "Waxing" },
+  { name: "Chin Wax", price: "$16", duration: "15 min", category: "Waxing" },
+  { name: "Cheek Wax", price: "$25", duration: "30 min", category: "Waxing" },
+  { name: "Neck Wax", price: "$18", duration: "30 min", category: "Waxing" },
+  { name: "Underarm Wax", price: "$30", duration: "30 min", category: "Waxing" },
+  { name: "Belly Button Wax", price: "$18", duration: "15 min", category: "Waxing" },
+  { name: "Stomach Wax", price: "$25+", duration: "45 min", category: "Waxing" },
+  { name: "Bikini Wax", price: "$48", duration: "—", category: "Waxing" },
+  { name: "Extended Bikini", price: "$58", duration: "45 min", category: "Waxing" },
+  { name: "Brazilian Wax", price: "$67+", duration: "60 min", category: "Waxing" },
+  { name: "Vajacial Intimate Skin Treatment", price: "$65+", duration: "60 min", category: "Waxing" },
+  { name: "Butt Cheek Wax", price: "$25+", duration: "30 min", category: "Waxing" },
+  { name: "Lower Arm Wax", price: "$30", duration: "30 min", category: "Waxing" },
+  { name: "Full Arm Wax", price: "$45", duration: "45 min", category: "Waxing" },
+  { name: "Lower Leg Wax", price: "$50", duration: "60 min", category: "Waxing" },
+  { name: "Upper Leg Wax", price: "$50", duration: "60 min", category: "Waxing" },
+  { name: "Full Leg Wax", price: "$85", duration: "30 min", category: "Waxing" },
+  { name: "Back Wax", price: "$65+", duration: "60 min", category: "Waxing" },
+  { name: "Chest Wax", price: "$65+", duration: "60 min", category: "Waxing" },
+  { name: "Custom Wax Price", price: "Varies", duration: "30 min", category: "Waxing" },
+  { name: "Intimate Bleaching – Bryghten Up", price: "Price varies", duration: "60 min", category: "Add-Ons" },
+  { name: "Skin Consultation for Products", price: "Free", duration: "30 min", category: "Add-Ons" },
+  { name: "Product Pick Up", price: "Varies", duration: "20 min", category: "Add-Ons" }
+];
+
+var FEATURED = [
+  { name: "Signature HydraFacial Special", price: "$185+", duration: "45 min", description: "A refreshing facial experience designed to cleanse, hydrate and revitalise the skin." },
+  { name: "Deluxe HydraFacial", price: "$265+", duration: "75 min", description: "A more indulgent HydraFacial experience for those looking for an elevated skincare ritual." },
+  { name: "Microneedling", price: "$350", duration: "75 min", description: "A professional skin treatment focused on supporting a refined, refreshed complexion." },
+  { name: "The Perfect Derma Peel", price: "$300", duration: "60 min", description: "A professional peel experience designed to refresh and renew the appearance of the skin." }
+];
+
+var PACKAGES = [
+  { name: "The Perfect Derma Peel Package", price: "$750", save: "$150", detail: "A curated series built around The Perfect Derma Peel." },
+  { name: "AURA 365 Peel Package", price: "$750", save: "$150", detail: "A considered programme centred on the AURA 365 Peel." },
+  { name: "Microneedling Package", price: "$900", save: "$150", detail: "A multi-session microneedling ritual for sustained care." },
+  { name: "Signature HydraFacial Package", price: "$875", save: "$235", detail: "An elevated HydraFacial journey across multiple visits." }
+];
+
+/* ===================== HELPERS ===================== */
+function scrollToSection(href) {
+  var el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+  toggleMobileMenu(false);
+}
+
+/* ===================== PRELOADER ===================== */
+(function() {
+  var pre = document.getElementById("preloader");
+  var main = document.getElementById("main");
+  setTimeout(function() { pre.classList.add("closing"); }, 1500);
+  setTimeout(function() { pre.style.display = "none"; pre.classList.add("gone"); }, 2100);
+  setTimeout(function() { main.style.opacity = "1"; }, 200);
+})();
+
+/* ===================== HEADER SCROLL ===================== */
+(function() {
+  var header = document.getElementById("header");
+  function onScroll() {
+    if (window.scrollY > 24) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+
+/* ===================== MOBILE MENU ===================== */
+function toggleMobileMenu(open) {
+  var menu = document.getElementById("mobile-menu");
+  if (open) menu.classList.add("open");
+  else menu.classList.remove("open");
+  document.body.style.overflow = open ? "hidden" : "";
+}
+
+/* ===================== HERO PARALLAX ===================== */
+(function() {
+  var el = document.getElementById("hero-img-wrap");
+  if (!el) return;
+  var raf;
+  window.addEventListener("mousemove", function(e) {
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function() {
+      var x = (e.clientX / window.innerWidth - 0.5) * 14;
+      var y = (e.clientY / window.innerHeight - 0.5) * 14;
+      el.style.transform = "translate3d(" + x + "px, " + y + "px, 0) scale(1.06)";
+    });
+  });
+})();
+
+/* ===================== SCROLL REVEAL ===================== */
+(function() {
+  var reveals = document.querySelectorAll(".reveal");
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("is-visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  reveals.forEach(function(el) { io.observe(el); });
+})();
+
+/* ===================== RENDER: SIGNATURE TREATMENTS ===================== */
+(function() {
+  var grid = document.getElementById("sig-grid");
+  SIGNATURE_CATEGORIES.forEach(function(c, i) {
+    var delay = i * 90;
+    var html = '<div class="reveal" style="transition-delay:' + delay + 'ms;">' +
+      '<button class="sig-card" onclick="scrollToSection(\'#discovery\')">' +
+        '<div class="sig-card-img">' +
+          '<img src="' + c.image + '" alt="' + c.title + '" loading="lazy" />' +
+          '<div class="sig-card-overlay"></div>' +
+          '<span class="sig-card-no">' + c.no + '</span>' +
+        '</div>' +
+        '<div class="sig-card-body">' +
+          '<h3 class="sig-card-title">' + c.title + '</h3>' +
+          '<p class="sig-card-desc">' + c.description + '</p>' +
+          '<span class="sig-card-link">Explore <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>' +
+        '</div>' +
+      '</button>' +
+    '</div>';
+    grid.insertAdjacentHTML("beforeend", html);
+  });
+  // re-observe new reveals
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach(function(el) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    io.observe(el);
+  });
+})();
+
+/* ===================== RENDER: TREATMENT DISCOVERY ===================== */
+var activeCategory = "All Treatments";
+
+function renderFilters() {
+  var inner = document.getElementById("filter-inner");
+  inner.innerHTML = "";
+  DISCOVERY_CATEGORIES.forEach(function(cat) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn" + (cat === activeCategory ? " active" : "");
+    btn.textContent = cat;
+    btn.onclick = function() { activeCategory = cat; renderFilters(); renderDiscovery(); };
+    inner.appendChild(btn);
+  });
+}
+
+function renderDiscovery() {
+  var grid = document.getElementById("disc-grid");
+  var empty = document.getElementById("disc-empty");
+  grid.innerHTML = "";
+  var filtered;
+  if (activeCategory === "All Treatments") filtered = TREATMENTS;
+  else if (activeCategory === "Packages") filtered = TREATMENTS.filter(function(t) { return t.category === "Packages"; });
+  else filtered = TREATMENTS.filter(function(t) { return t.category === activeCategory; });
+
+  if (filtered.length === 0) { empty.style.display = "block"; return; }
+  empty.style.display = "none";
+
+  filtered.forEach(function(t) {
+    var div = document.createElement("div");
+    div.className = "disc-card";
+    div.innerHTML =
+      '<div>' +
+        '<h3 class="disc-card-name">' + t.name + '</h3>' +
+        '<div class="disc-card-meta">' +
+          '<span class="disc-card-price">' + t.price + '</span>' +
+          '<span class="disc-card-sep"></span>' +
+          '<span class="disc-card-dur">' + t.duration + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<a class="disc-card-book" href="' + BUSINESS.bookingUrl + '" target="_blank" rel="noopener noreferrer">Book Now</a>';
+    grid.appendChild(div);
+  });
+}
+renderFilters();
+renderDiscovery();
+
+/* ===================== RENDER: FEATURED TREATMENTS ===================== */
+(function() {
+  var grid = document.getElementById("feat-grid");
+  FEATURED.forEach(function(f, i) {
+    var delay = i * 80;
+    var html = '<div class="reveal" style="transition-delay:' + delay + 'ms;">' +
+      '<div class="feat-card">' +
+        '<h3 class="feat-card-name">' + f.name + '</h3>' +
+        '<div class="feat-card-meta">' +
+          '<span class="feat-card-price">' + f.price + '</span>' +
+          '<span class="feat-card-sep"></span>' +
+          '<span class="feat-card-dur">' + f.duration + '</span>' +
+        '</div>' +
+        '<p class="feat-card-desc">' + f.description + '</p>' +
+        '<a class="feat-card-book" href="' + BUSINESS.bookingUrl + '" target="_blank" rel="noopener noreferrer">Book This Treatment</a>' +
+      '</div>' +
+    '</div>';
+    grid.insertAdjacentHTML("beforeend", html);
+  });
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach(function(el) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    io.observe(el);
+  });
+})();
+
+/* ===================== RENDER: PACKAGES ===================== */
+(function() {
+  var grid = document.getElementById("pkg-grid");
+  PACKAGES.forEach(function(p, i) {
+    var delay = i * 90;
+    var html = '<div class="reveal" style="transition-delay:' + delay + 'ms;">' +
+      '<div class="pkg-card">' +
+        '<h3 class="pkg-card-name">' + p.name + '</h3>' +
+        '<div class="pkg-card-meta">' +
+          '<span class="pkg-card-price">' + p.price + '</span>' +
+          '<span class="pkg-card-save">Save ' + p.save + '</span>' +
+        '</div>' +
+        '<p class="pkg-card-detail">' + p.detail + '</p>' +
+        '<a class="pkg-card-book" href="' + BUSINESS.bookingUrl + '" target="_blank" rel="noopener noreferrer">Book Now</a>' +
+      '</div>' +
+    '</div>';
+    grid.insertAdjacentHTML("beforeend", html);
+  });
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach(function(el) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    io.observe(el);
+  });
+})();
+
+/* ===================== RENDER: FULL MENU ===================== */
+var MENU_GROUPS = [
+  { title: "Facials", items: TREATMENTS.filter(function(t){ return t.category === "Facials"; }) },
+  { title: "HydraFacials", items: TREATMENTS.filter(function(t){ return t.category === "HydraFacials"; }) },
+  { title: "Peels", items: TREATMENTS.filter(function(t){ return t.category === "Peels"; }) },
+  { title: "Microneedling", items: TREATMENTS.filter(function(t){ return t.category === "Microneedling"; }) },
+  { title: "Dermaplaning", items: TREATMENTS.filter(function(t){ return t.category === "Dermaplaning"; }) },
+  { title: "Add-Ons", items: TREATMENTS.filter(function(t){ return t.category === "Add-Ons"; }) },
+  { title: "Waxing", items: TREATMENTS.filter(function(t){ return t.category === "Waxing"; }) },
+  { title: "Packages", items: PACKAGES.map(function(p){ return { name: p.name, price: p.price, duration: "Save " + p.save, category: "Packages" }; }) }
+];
+
+var openMenus = new Set(["Facials"]);
+
+function toggleMenu(title) {
+  if (openMenus.has(title)) openMenus.delete(title);
+  else openMenus.add(title);
+  renderMenu();
+}
+
+function renderMenu() {
+  var list = document.getElementById("menu-list");
+  list.innerHTML = "";
+  MENU_GROUPS.forEach(function(g) {
+    var isOpen = openMenus.has(g.title);
+    var group = document.createElement("div");
+    group.className = "menu-group";
+
+    var countLabel = g.items.length + (g.items.length === 1 ? " Item" : " Items");
+
+    var itemsHtml = g.items.map(function(it) {
+      var durHtml = "";
+      if (it.duration && it.duration !== "—") {
+        durHtml = '<span class="menu-item-dur"><span class="sep">· </span>' + it.duration + '</span>';
+      }
+      return '<li class="menu-item">' +
+        '<div class="menu-item-name">' + it.name + durHtml + '</div>' +
+        '<div class="menu-item-right">' +
+          '<span class="menu-item-price">' + it.price + '</span>' +
+          '<a class="menu-item-book" href="' + BUSINESS.bookingUrl + '" target="_blank" rel="noopener noreferrer">Book</a>' +
+        '</div>' +
+      '</li>';
+    }).join("");
+
+    group.innerHTML =
+      '<button class="menu-group-head" onclick="toggleMenu(\'' + g.title.replace(/'/g, "\\'") + '\')" aria-expanded="' + isOpen + '">' +
+        '<span class="menu-group-title">' + g.title + '</span>' +
+        '<span class="menu-group-right">' +
+          '<span class="menu-group-count">' + countLabel + '</span>' +
+          '<svg class="chevron' + (isOpen ? " open" : "") + '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</span>' +
+      '</button>' +
+      '<div class="menu-expand' + (isOpen ? " open" : "") + '">' +
+        '<div class="menu-expand-inner">' +
+          '<div class="menu-expand-pad">' +
+            '<ul class="menu-items">' + itemsHtml + '</ul>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    list.appendChild(group);
+  });
+}
+renderMenu();
+
+/* ===================== YEAR ===================== */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ===================== CONCIERGE ===================== */
+var CONCIERGE_SUGGESTIONS = [
+  "What HydraFacials do you offer?",
+  "Tell me about your packages",
+  "How much is microneedling?",
+  "Where are you located?"
+];
+
+var conciergeMessages = [
+  { role: "assistant", content: "Hello — I'm Katherine's Skincare Concierge. I can help you explore treatments, prices, durations and packages, or help you book. How can I assist?" }
+];
+
+function toggleConcierge() {
+  var panel = document.getElementById("concierge-panel");
+  var btn = document.getElementById("concierge-btn");
+  var isOpen = panel.classList.toggle("open");
+  btn.innerHTML = isOpen
+    ? '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+    : '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+}
+
+function renderConciergeMessages() {
+  var container = document.getElementById("concierge-messages");
+  container.innerHTML = "";
+  conciergeMessages.forEach(function(m) {
+    var div = document.createElement("div");
+    div.className = "concierge-msg " + (m.role === "user" ? "user" : "bot");
+    div.textContent = m.content;
+    container.appendChild(div);
+  });
+  container.scrollTop = container.scrollHeight;
+}
+
+function renderConciergeSuggestions() {
+  var container = document.getElementById("concierge-suggestions");
+  container.innerHTML = "";
+  if (conciergeMessages.length > 1) return;
+  CONCIERGE_SUGGESTIONS.forEach(function(s) {
+    var btn = document.createElement("button");
+    btn.className = "concierge-suggestion";
+    btn.textContent = s;
+    btn.onclick = function() { conciergeSend(s); };
+    container.appendChild(btn);
+  });
+}
+
+function getConciergeReply(message) {
+  var msg = message.toLowerCase().trim();
+  var words = msg.split(/\s+/).filter(function(w) { return w.length > 2; });
+
+  // Greeting
+  if (/\b(hi|hello|hey|greetings|good (morning|afternoon|evening))\b/.test(msg) && words.length <= 2) {
+    return "Hello! I'm Katherine's Skincare Concierge. I can help you explore our treatments, prices, durations, and packages, or help you book. What would you like to know?";
+  }
+
+  // Location
+  if (/\b(where|location|address|find|directions|locate)\b/.test(msg)) {
+    return "Katherine Booth Skincare & Spa is located at 2007 Tate Springs Road, Lynchburg, VA 24551, USA. You can reach us at +1 434 426 1412 or kboothskincare@gmail.com.";
+  }
+
+  // Contact
+  if (/\b(phone|call|email|contact|reach|number)\b/.test(msg)) {
+    return "You can reach Katherine Booth Skincare & Spa at +1 434 426 1412 or kboothskincare@gmail.com. We'd be happy to help with any questions.";
+  }
+
+  // Booking
+  if (/\b(book|appointment|schedule|reserve|booking)\b/.test(msg)) {
+    return "You can book your treatment directly through our GlossGenius booking page at katherinebooth.glossgenius.com. Choose your treatment and find a time that works for you.";
+  }
+
+  // Packages
+  if (/\b(package|packages|deal|series|bundle)\b/.test(msg)) {
+    var pkgLines = PACKAGES.map(function(p) {
+      return p.name + " — " + p.price + " (Save " + p.save + ")";
+    });
+    return "We offer four packages:\n\n" + pkgLines.join("\n") + "\n\nYou can book any package through GlossGenius.";
+  }
+
+  // Hours
+  if (/\b(hours|open|opening|closed|close|when.*open)\b/.test(msg)) {
+    return "Opening hours aren't listed — for personalised advice, please contact Katherine directly or book a consultation.";
+  }
+
+  // Price / cost queries
+  if (/\b(price|prices|pricing|cost|how much|costs|fee|fees)\b/.test(msg)) {
+    // Try to find what they're asking about
+    var priceMatches = TREATMENTS.filter(function(t) {
+      return words.some(function(w) {
+        return t.name.toLowerCase().indexOf(w) >= 0 || t.category.toLowerCase().indexOf(w) >= 0;
+      });
+    });
+
+    if (priceMatches.length > 0 && priceMatches.length <= 6) {
+      var lines = priceMatches.map(function(t) {
+        return t.name + " — " + t.price + " — " + t.duration;
+      });
+      return "Here's what I found:\n\n" + lines.join("\n");
+    }
+
+    // Category price summary
+    var catMatch = null;
+    DISCOVERY_CATEGORIES.forEach(function(cat) {
+      if (cat !== "All Treatments" && msg.indexOf(cat.toLowerCase().replace("hydrafacials", "hydrafacial")) >= 0) {
+        catMatch = cat;
+      }
+    });
+
+    if (catMatch) {
+      var catItems = TREATMENTS.filter(function(t) { return t.category === catMatch; });
+      if (catItems.length > 0) {
+        var catLines = catItems.map(function(t) { return t.name + " — " + t.price; });
+        return "Our " + catMatch + " treatments:\n\n" + catLines.join("\n");
+      }
+    }
+
+    return "Our treatments range from $15 (Lip Wax) to $550 (Deluxe Microneedling). You can browse all treatments and prices in the Treatment Discovery and Full Menu sections above. For specific pricing questions, feel free to ask about a particular treatment.";
+  }
+
+  // Category-specific queries
+  var catMap = {
+    "facial": "Facials",
+    "facials": "Facials",
+    "hydrafacial": "HydraFacials",
+    "hydrafacials": "HydraFacials",
+    "hydra facial": "HydraFacials",
+    "peel": "Peels",
+    "peels": "Peels",
+    "microneedle": "Microneedling",
+    "microneedling": "Microneedling",
+    "dermaplane": "Dermaplaning",
+    "dermaplaning": "Dermaplaning",
+    "wax": "Waxing",
+    "waxing": "Waxing",
+    "add": "Add-Ons",
+    "add-on": "Add-Ons",
+    "addons": "Add-Ons"
+  };
+
+  for (var key in catMap) {
+    if (msg.indexOf(key) >= 0) {
+      var cat = catMap[key];
+      var catItems = TREATMENTS.filter(function(t) { return t.category === cat; });
+      if (catItems.length > 0) {
+        var catLines = catItems.map(function(t) {
+          return t.name + " — " + t.price + " — " + t.duration;
+        });
+        return "Our " + cat + " treatments:\n\n" + catLines.join("\n") + "\n\nYou can book any of these through GlossGenius.";
+      }
+    }
+  }
+
+  // Specific treatment search
+  var specificMatches = TREATMENTS.filter(function(t) {
+    return words.some(function(w) { return t.name.toLowerCase().indexOf(w) >= 0; });
+  });
+
+  if (specificMatches.length > 0 && specificMatches.length <= 4) {
+    var specLines = specificMatches.map(function(t) {
+      return t.name + " — " + t.price + " — " + t.duration;
+    });
+    return "Here's what I found:\n\n" + specLines.join("\n") + "\n\nYou can book through GlossGenius.";
+  }
+
+  // Services / what do you offer
+  if (/\b(services|offer|treatments|menu|what.*do you|what.*have)\b/.test(msg)) {
+    return "We offer a full range of skincare treatments including Customised Facials, HydraFacials, Peels, Microneedling, Dermaplaning, Add-Ons, and Waxing. We also offer four treatment packages. Browse the sections above or ask me about any specific treatment!";
+  }
+
+  // Fallback
+  return "For personalised advice, please contact Katherine directly or book a consultation.";
+}
+
+function conciergeSend(text) {
+  var input = document.getElementById("concierge-input");
+  var sendBtn = document.getElementById("concierge-send");
+  var content = (text !== undefined ? text : input.value).trim();
+  if (!content) return;
+
+  conciergeMessages.push({ role: "user", content: content });
+  input.value = "";
+  sendBtn.disabled = true;
+  renderConciergeMessages();
+  renderConciergeSuggestions();
+
+  // Show typing
+  var container = document.getElementById("concierge-messages");
+  var typing = document.createElement("div");
+  typing.className = "concierge-typing";
+  typing.id = "concierge-typing";
+  typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+  container.appendChild(typing);
+  container.scrollTop = container.scrollHeight;
+
+  setTimeout(function() {
+    var typingEl = document.getElementById("concierge-typing");
+    if (typingEl) typingEl.remove();
+    var reply = getConciergeReply(content);
+    conciergeMessages.push({ role: "assistant", content: reply });
+    sendBtn.disabled = false;
+    renderConciergeMessages();
+    renderConciergeSuggestions();
+  }, 600 + Math.random() * 400);
+}
+
+// Input enable/disable
+document.getElementById("concierge-input").addEventListener("input", function() {
+  document.getElementById("concierge-send").disabled = !this.value.trim();
+});
+
+renderConciergeMessages();
+renderConciergeSuggestions();
+
+/* ===================== COPY ALL BUTTON ===================== */
+(function() {
+  var btn = document.createElement("button");
+  btn.id = "copy-all-btn";
+  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy HTML</span>';
+  btn.style.cssText = "position:fixed;z-index:90;bottom:5.5rem;left:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;height:2.75rem;padding:0 1.25rem;background:var(--fg);color:var(--bg);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;border-radius:9999px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:all 0.3s ease;";
+  document.body.appendChild(btn);
+
+  btn.addEventListener("mouseenter", function() { btn.style.background = "var(--accent)"; });
+  btn.addEventListener("mouseleave", function() { btn.style.background = "var(--fg)"; });
+
+  btn.addEventListener("click", function() {
+    var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(html).then(function() {
+        var label = btn.querySelector("span");
+        var orig = label.textContent;
+        label.textContent = "Copied!";
+        btn.style.background = "#4a7c59";
+        setTimeout(function() { label.textContent = orig; btn.style.background = "var(--fg)"; }, 2000);
+      }).catch(function() { fallbackCopy(html, btn); });
+    } else {
+      fallbackCopy(html, btn);
+    }
+  });
+
+  function fallbackCopy(text, btn) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      var label = btn.querySelector("span");
+      var orig = label.textContent;
+      label.textContent = "Copied!";
+      btn.style.background = "#4a7c59";
+      setTimeout(function() { label.textContent = orig; btn.style.background = "var(--fg)"; }, 2000);
+    } catch (e) {
+      var label = btn.querySelector("span");
+      label.textContent = "Press Ctrl+A, Ctrl+C";
+    }
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>
