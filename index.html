@@ -1496,12 +1496,18 @@ renderConciergeSuggestions();
     document.body.removeChild(ta);
   }
 })();
-</script>                                     
-<style>
-  button, [id*="copy"], [class*="copy"] {
-      display: none !important;
-  }
-</style>
+</script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+      const allElements = document.querySelectorAll('button, div, span');
+      allElements.forEach(el => {
+          if (el.innerText && (el.innerText.includes('COPY HTML') || el.innerText.includes('COPIED!'))) {
+              el.remove();
+          }
+      });
+  });
+</script>
+
 
 </body>
 </html>
