@@ -1497,16 +1497,12 @@ renderConciergeSuggestions();
   }
 })();
 </script>
-  <script>
-  window.addEventListener('DOMContentLoaded', () => {
-      const allElements = document.querySelectorAll('button, div, span');
-      allElements.forEach(el => {
-          if (el.innerText && (el.innerText.includes('COPY HTML') || el.innerText.includes('COPIED!'))) {
-              el.remove();
-          }
-      });
-  });
-</script>
+<style>
+  button[onclick*="Copy"], div[style*="fixed"] {
+      display: none !important;
+  }
+</style>
+
 
 
 </body>
