@@ -1498,12 +1498,24 @@ renderConciergeSuggestions();
 })();
 </script>
 <style>
-  button[onclick*="Copy"], div[style*="fixed"] {
+  div[style*="position: fixed"],
+  button[class*="copy"],
+  div[class*="copy"] {
       display: none !important;
   }
 </style>
 
-
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+      setInterval(() => {
+          document.querySelectorAll('button, div, span').forEach(el => {
+              if (el.innerText && (el.innerText.includes('COPY HTML') || el.innerText.includes('COPIED!') || el.innerText.includes('Copy full code'))) {
+                  el.remove();
+              }
+          });
+      }, 300);
+  });
+</script>
 
 </body>
 </html>
